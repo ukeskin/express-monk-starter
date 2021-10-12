@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
 // database initial
 const mongo_url = process.env.MONGO_URI;
 console.log(mongo_url);
@@ -24,12 +25,14 @@ app.get("/api/emojis", (req, res) => {
     res.json(emojis);
   });
 });
+
 // fetch data from database by id
 app.get("/api/emojis/:id", (req, res) => {
   Emojis.find({ _id: req.params.id }).then((emojis) => {
     res.json(emojis);
   });
 });
+
 // add data to database
 app.post("/api/emojis", (req, res) => {
   try {
@@ -39,6 +42,7 @@ app.post("/api/emojis", (req, res) => {
     throw console.log(error);
   }
 });
+
 // update data to database by id
 app.patch("/api/emojis/:id", (req, res) => {
   try {
